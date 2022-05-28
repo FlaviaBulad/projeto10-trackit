@@ -16,7 +16,7 @@ export default function SignUpPage() {  //Main function,reders the sigh up page
     const navigate = useNavigate();
     const [signUpData, setSignUpData] = useState(signUpDataObject); //sign up data from forms
 
-    function onChange(e) { // forms OnChange function
+    function OnChange(e) { // forms OnChange function
         setSignUpData({ ...signUpData, [e.target.name]: e.target.value }); //filling the sign up object with the forms data
     }
 
@@ -39,19 +39,23 @@ export default function SignUpPage() {  //Main function,reders the sigh up page
 
                 <Form onSubmit={SignUpDataToAPI}>
                     <Input
-                        type="email" placeholder="email" name="email" onChange={onChange} value={signUpData.email} required
+                        type="email" placeholder="email" name="email"
+                        onChange={OnChange} value={signUpData.email} required
                     />
 
                     <Input
-                        type="password" placeholder="senha" name="password" onChange={onChange} value={signUpData.password} required
+                        type="password" placeholder="senha" name="password"
+                        onChange={OnChange} value={signUpData.password} required
                     />
 
                     <Input
-                        type="text" placeholder="nome" name="name" onChange={onChange} value={signUpData.name} required
+                        type="text" placeholder="nome" name="name"
+                        onChange={OnChange} value={signUpData.name} required
                     />
 
                     <Input
-                        type="text" placeholder="foto" name="image" onChange={onChange} value={signUpData.image} required
+                        type="text" placeholder="foto" name="image"
+                        onChange={OnChange} value={signUpData.image} required
                     />
 
                     <Button type="submit">
