@@ -1,5 +1,9 @@
+import Header from "../Layouts/Header";
+
 export default function HabitsPage(){
-    return(
+    return( <>
+        <Header />
         <h1>Habits Page</h1>
+        </>
     );
     }
