@@ -1,15 +1,16 @@
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
     return (
-        <>
+        <Link to="/">
             <Container>
                 <Logo>
-                    Trackit
+                    TrackIt
                 </Logo>
                 <img src="https://play-lh.googleusercontent.com/2BEgDo5erZ_Nd8agnORfSH8IWFBnr6DcYH-cN-9FeGi4YyTqgrufK-C3XPv7GH4agXM" alt="profile pic"/>
             </Container>
-        </>
+        </Link>
     );
 }
 

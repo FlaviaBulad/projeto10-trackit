@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import HabitsPage from './Components/Habits/HabitsPage';
+import Header from './Components/Layouts/Header';
 import LoginPage from './Components/Login/LoginPage';
 import SignUpPage from './Components/SignUp/SignUpPage';
 import TodayPage from './Components/Today/TodayPage';
