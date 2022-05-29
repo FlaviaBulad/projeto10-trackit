@@ -1,14 +1,17 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import UserContext from '../../contexts/UserContext';
 
 export default function Header() {
+    const { photo } = useContext(UserContext); //contextAPI 
     return (
         <Link to="/">
             <Container>
                 <Logo>
                     TrackIt
                 </Logo>
-                <img src="https://play-lh.googleusercontent.com/2BEgDo5erZ_Nd8agnORfSH8IWFBnr6DcYH-cN-9FeGi4YyTqgrufK-C3XPv7GH4agXM" alt="profile pic"/>
+                <img src={photo} alt="profile pic"/>
             </Container>
         </Link>
     );
