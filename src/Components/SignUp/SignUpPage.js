@@ -16,7 +16,7 @@ export default function SignUpPage() {  //Main function,reders the sigh up page
 
     const navigate = useNavigate();
     const [signUpData, setSignUpData] = useState(signUpDataObject); //sign up data from forms
-    const { photo, setPhoto } = useContext(UserContext); //contextAPI 
+
 
     function OnChange(e) { // forms OnChange function
         setSignUpData({ ...signUpData, [e.target.name]: e.target.value }); //filling the sign up object with the forms data
@@ -25,8 +25,7 @@ export default function SignUpPage() {  //Main function,reders the sigh up page
     function SignUpDataToAPI(e) { //sending all the data to api and redirectioning user to login page if successfull
         e.preventDefault();
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", { ...signUpData });
-        promise.then((response) => {
-            setPhoto(response.data.image);
+        promise.then(() => {
             navigate("/");
         });
         promise.catch((err) => {

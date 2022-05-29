@@ -14,6 +14,7 @@ export default function LoginPage() {
 
     const navigate = useNavigate();
     const { token, setToken } = useContext(UserContext); //contextAPI 
+    const { photo, setPhoto } = useContext(UserContext); //contextAPI 
     const [loginData, setLoginData] = useState(loginDataObject);
 
     function OnChange(e) {
@@ -26,6 +27,7 @@ export default function LoginPage() {
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", { ...loginData });
         promise.then((response) => {
             setToken(response.data.token);
+            setPhoto(response.data.image);
             navigate("/habitos");
         });
         promise.catch((err) => {

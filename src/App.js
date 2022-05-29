@@ -6,6 +6,7 @@ import SignUpPage from './Components/SignUp/SignUpPage';
 import TodayPage from './Components/Today/TodayPage';
 import HistoryPage from './History/HistoryPage';
 import UserContext from './contexts/UserContext';
+import './styles/reset.css';
 
 function App() {
 
