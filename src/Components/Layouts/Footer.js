@@ -1,17 +1,44 @@
 import styled from 'styled-components';
-import { CircularProgressbar } from 'react-circular-progressbar';
+import { useState, useEffect, useContext } from "react";
+import UserContext from '../../contexts/UserContext';
 import { Link } from 'react-router-dom';
-import '../../styles/CircularProgressbar.css';
+import Progressbar from '../Libs/Progressbar';
+import axios from 'axios';
 
-export default function Footer() {
+export default function Footer({ refresh }) {
+    const { token, percentage, setPercentage } = useContext(UserContext);
+    const [infoDones, setDones] = useState({ total: 0, done: 0 });
+    setPercentage(Math.ceil((infoDones.done / infoDones.total) * 100) || 0);
 
-    const percentage = 50;
+    useEffect(() => {
+
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        };
+
+        const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config);
+        promise.then(response => {
+            const tam = response.data.filter((item, index) => response.data[index].done === true); 
+            setDones(
+                {
+                    total: response.data.length,
+                    done: tam.length,
+                }
+            );
+        })
+        promise.catch((err) => {
+            const errMessage = err.response.statusText;
+            alert(`Oops deu algum pepino! Erro: ${errMessage}`)
+        });
+    }, [refresh]);
 
     function BuildFooter() {
         return (
             <>
-                 <StyledLink to="/habitos/">Hábitos</StyledLink>         
-                <CircularProgressbar value={percentage} text='Hoje' />
+                <StyledLink to="/habitos/">Hábitos</StyledLink>
+                <Progressbar percentage={percentage} />
                 <StyledLink to="/historico">Histórico</StyledLink>
             </>
         );
@@ -22,7 +49,7 @@ export default function Footer() {
         <Container>
             {footer}
         </Container>
-        );
+    );
 }
 
 //style
@@ -38,8 +65,9 @@ align-items: center;
 justify-content: space-between;
 box-sizing: border-box;
 background: #FFFFFF;
-padding-left:70px;
+padding-left:40px;
 padding-right: 70px;
+z-index: 0;
 `
 const StyledLink = styled(Link)`
 width: 68px;

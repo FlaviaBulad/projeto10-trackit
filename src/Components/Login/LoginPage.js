@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from "../../Assets/Images/logo.png";
 import UserContext from '../../contexts/UserContext';
-
+import Spinner from '../Libs/Spinner';
 export default function LoginPage() {
 
     const loginDataObject = { //creating login data oject 
@@ -13,6 +13,7 @@ export default function LoginPage() {
     };
 
     const navigate = useNavigate();
+    const [isLoading, setIsLoading] = useState(false);
     const { token, setToken } = useContext(UserContext); //contextAPI 
     const { photo, setPhoto } = useContext(UserContext); //contextAPI 
     const [loginData, setLoginData] = useState(loginDataObject);
@@ -23,14 +24,16 @@ export default function LoginPage() {
 
     function LoginDataToAPI(e) {
         e.preventDefault();
-
+        setIsLoading(true);
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", { ...loginData });
         promise.then((response) => {
+            setIsLoading(false);
             setToken(response.data.token);
             setPhoto(response.data.image);
-            navigate("/habitos");
+            navigate("/hoje");
         });
         promise.catch((err) => {
+            setIsLoading(false);
             const errMessage = err.response.statusText;
             alert(`Oops deu algum pepino! reveja os campos e tente novamente. Erro: ${errMessage}`)
         });
@@ -43,16 +46,20 @@ export default function LoginPage() {
                 <Form onSubmit={LoginDataToAPI}>
                     <Input
                         type="email" placeholder="email" name="email"
-                        onChange={OnChange} value={loginData.email} required
+                        onChange={OnChange} value={loginData.email} required 
                     />
 
                     <Input
                         type="password" placeholder="senha" name="password"
-                        onChange={OnChange} value={loginData.password} required
+                        onChange={OnChange} value={loginData.password} required 
                     />
 
-                    <Button type="submit" >
-                        Entrar
+                    <Button type="submit" disabled={isLoading} >
+                        {
+                            isLoading
+                                ? <Spinner type="ThreeDots" color="#FFFFFF" height={50} width={50} />
+                                : "Entrar"
+                        }
                     </Button>
                 </Form>
                 <StyledLink to="/cadastro/">
@@ -127,6 +134,9 @@ const Button = styled.button`
  line-height: 26px;
  text-align: center;
  color: #FFFFFF;
+
+ pointer-events: ${(props) => props.disabled ? "none" : "all"};
+  opacity: ${(props) => props.disabled ? 0.7 : 1};
 `;
 
 const StyledLink = styled(Link)`

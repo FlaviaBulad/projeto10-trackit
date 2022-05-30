@@ -10,11 +10,12 @@ import './styles/reset.css';
 
 function App() {
 
-  const [token, setToken] = useState(0);
+  const [token, setToken] = useState(null);
   const [photo, setPhoto] = useState('');
+  const [percentage, setPercentage] = useState(0);
 
   return (
-    <UserContext.Provider value={{token, setToken, photo, setPhoto}}>
+    <UserContext.Provider value={{token, setToken, photo, setPhoto, percentage, setPercentage}}>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<LoginPage />} />

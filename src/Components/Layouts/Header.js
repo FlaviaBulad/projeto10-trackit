@@ -6,14 +6,14 @@ import UserContext from '../../contexts/UserContext';
 export default function Header() {
     const { photo } = useContext(UserContext); //contextAPI 
     return (
-        <Link to="/">
+        <>
             <Container>
                 <Logo>
                     TrackIt
                 </Logo>
-                <img src={photo} alt="profile pic"/>
+                <img src={photo} alt="profile pic" />
             </Container>
-        </Link>
+        </>
     );
 }
 
