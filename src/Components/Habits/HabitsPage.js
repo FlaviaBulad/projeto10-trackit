@@ -277,7 +277,7 @@ const Container = styled.div`
     }
     .cancel{
         font-size: 15.976px;
-        color: #52B6FF;
+        color: #FFFFFF;
         margin-right: 10px ;
         background-color: none;
         border:none;
@@ -330,22 +330,27 @@ const Container = styled.div`
     
     
     .delete{
+        font-family: 'Lexend Deca';
         position: absolute;
-        width: 100%;
         height: 91px;
+        max-width:300px;
         border-radius: 5px;
-        background-color: #126BA5;
+        background-color: #CFCFCF;
         color: #FFFFFF;
         display: flex;
         flex-wrap: wrap;
         flex-direction: column;
         align-items: center;
         justify-content: center;
+        overflow: auto;
+        box-sizing: border-box;
+        padding:10px;
     }
 
     .confirmDelete{
-        background-color: red;
-        padding: 6px;
+        background-color: #52B6FF;
+        border-radius: 5px;
+        padding: 3px;
         color: #FFFFFF;
         margin-left: 10px 
     }

@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import Progressbar from '../Libs/Progressbar';
 import axios from 'axios';
 
-export default function Footer({ refresh }) {
+export default function Footer({ reload }) {
     const { token, percentage, setPercentage } = useContext(UserContext);
     const [infoDones, setDones] = useState({ total: 0, done: 0 });
     setPercentage(Math.ceil((infoDones.done / infoDones.total) * 100) || 0);
@@ -20,11 +20,11 @@ export default function Footer({ refresh }) {
 
         const promise = axios.get('https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today', config);
         promise.then(response => {
-            const tam = response.data.filter((item, index) => response.data[index].done === true); 
+            const size = response.data.filter((item, index) => response.data[index].done === true); 
             setDones(
                 {
                     total: response.data.length,
-                    done: tam.length,
+                    done: size.length,
                 }
             );
         })
@@ -32,7 +32,7 @@ export default function Footer({ refresh }) {
             const errMessage = err.response.statusText;
             alert(`Oops deu algum pepino! Erro: ${errMessage}`)
         });
-    }, [refresh]);
+    }, [reload]);
 
     function BuildFooter() {
         return (

@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import Logo from "../../Assets/Images/logo.png";
-import UserContext from '../../contexts/UserContext';
+import Spinner from '../Libs/Spinner';
 
 export default function SignUpPage() {  //Main function,reders the sigh up page
 
@@ -16,7 +16,7 @@ export default function SignUpPage() {  //Main function,reders the sigh up page
 
     const navigate = useNavigate();
     const [signUpData, setSignUpData] = useState(signUpDataObject); //sign up data from forms
-
+    const [isLoading, setIsLoading] = useState(false);
 
     function OnChange(e) { // forms OnChange function
         setSignUpData({ ...signUpData, [e.target.name]: e.target.value }); //filling the sign up object with the forms data
@@ -24,11 +24,14 @@ export default function SignUpPage() {  //Main function,reders the sigh up page
 
     function SignUpDataToAPI(e) { //sending all the data to api and redirectioning user to login page if successfull
         e.preventDefault();
+        setIsLoading(true);
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", { ...signUpData });
         promise.then(() => {
+            setIsLoading(false);
             navigate("/");
         });
         promise.catch((err) => {
+            setIsLoading(false);
             const errMessage = err.response.statusText;
             alert(`Oops deu algum pepino! reveja os campos e tente novamente. Erro: ${errMessage}`)
         });
@@ -60,8 +63,10 @@ export default function SignUpPage() {  //Main function,reders the sigh up page
                         onChange={OnChange} value={signUpData.image} required
                     />
 
-                    <Button type="submit">
-                        Cadastrar
+                    <Button type="submit" disabled={isLoading}>
+                                {isLoading
+                                ? <Spinner type="ThreeDots" color="#FFFFFF" height={50} width={50} />
+                                : "Cadastrar"}
                     </Button>
                 </Form>
 
